@@ -31,29 +31,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(String username, String password, String countryName) throws Exception{
-        CountryName countryEnum;
-        try {
-            countryEnum = CountryName.valueOf(countryName.toUpperCase());
-        } catch (IllegalArgumentException e) {
+        String countryName1 = countryName.toUpperCase();
+
+        if (!countryName1.equals("IND") && !countryName1.equals("USA") && !countryName1.equals("CHI") && !countryName1.equals("JPN"))
             throw new Exception("Country not found");
-        }
+        Country country = new Country(CountryName.valueOf(countryName1.toString()), CountryName.valueOf(countryName1).toCode());
+
 
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setConnected(false);
 
-        Country country = new Country();
-        country.setCountryName(countryEnum);
-        country.setCode(countryEnum.toCode());
         country.setUser(user);
-
         user.setOriginalCountry(country);
 
-        User savedUser = userRepository3.save(user);
-        savedUser.setOriginalIp(country.getCode() + "." + savedUser.getId());
+        user = userRepository3.save(user);
 
-        return userRepository3.save(savedUser);
+        user.setOriginalIp(new String(user.getOriginalCountry().getCode() + "." + user.getId()));
+
+        user = userRepository3.save(user);
+        return user;
+
     }
 
     @Override
