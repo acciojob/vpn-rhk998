@@ -4,6 +4,7 @@ import com.driver.model.*;
 import com.driver.repository.AdminRepository;
 import com.driver.repository.CountryRepository;
 import com.driver.repository.ServiceProviderRepository;
+import com.driver.repository.UserRepository;
 import com.driver.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,22 @@ import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
-    @Autowired
-    AdminRepository adminRepository1;
 
-    @Autowired
-    ServiceProviderRepository serviceProviderRepository1;
+    private final UserRepository userRepository1;
+    private final ServiceProviderRepository serviceProviderRepository1;
+    private final CountryRepository countryRepository1;
+    private final AdminRepository adminRepository1;
 
-    @Autowired
-    CountryRepository countryRepository1;
+    // ✅ Constructor-based injection
+    public AdminServiceImpl(UserRepository userRepository3,
+                           ServiceProviderRepository serviceProviderRepository3,
+                           CountryRepository countryRepository3,
+                            AdminRepository adminRepository1) {
+        this.userRepository1 = userRepository3;
+        this.serviceProviderRepository1 = serviceProviderRepository3;
+        this.countryRepository1 = countryRepository3;
+        this.adminRepository1 = adminRepository1;
+    }
 
     @Override
     public Admin register(String username, String password) {

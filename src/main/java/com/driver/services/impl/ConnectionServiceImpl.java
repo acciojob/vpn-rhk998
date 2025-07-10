@@ -2,6 +2,7 @@ package com.driver.services.impl;
 
 import com.driver.model.*;
 import com.driver.repository.ConnectionRepository;
+import com.driver.repository.CountryRepository;
 import com.driver.repository.ServiceProviderRepository;
 import com.driver.repository.UserRepository;
 import com.driver.services.ConnectionService;
@@ -13,12 +14,18 @@ import java.util.Optional;
 
 @Service
 public class ConnectionServiceImpl implements ConnectionService {
-    @Autowired
-    UserRepository userRepository2;
-    @Autowired
-    ServiceProviderRepository serviceProviderRepository2;
-    @Autowired
-    ConnectionRepository connectionRepository2;
+    private final UserRepository userRepository2;
+    private final ServiceProviderRepository serviceProviderRepository2;
+    private final ConnectionRepository connectionRepository2;
+
+    // ✅ Constructor-based injection
+    public ConnectionServiceImpl(UserRepository userRepository3,
+                           ServiceProviderRepository serviceProviderRepository2,
+                           ConnectionRepository connectionRepository2) {
+        this.userRepository2 = userRepository3;
+        this.serviceProviderRepository2 = serviceProviderRepository2;
+        this.connectionRepository2 = connectionRepository2;
+    }
 
     @Override
     public User connect(int userId, String countryName) throws Exception{

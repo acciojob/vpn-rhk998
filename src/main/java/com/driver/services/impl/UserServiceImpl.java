@@ -16,12 +16,18 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepository userRepository3;
-    @Autowired
-    ServiceProviderRepository serviceProviderRepository3;
-    @Autowired
-    CountryRepository countryRepository3;
+    private final UserRepository userRepository3;
+    private final ServiceProviderRepository serviceProviderRepository3;
+    private final CountryRepository countryRepository3;
+
+    // ✅ Constructor-based injection
+    public UserServiceImpl(UserRepository userRepository3,
+                           ServiceProviderRepository serviceProviderRepository3,
+                           CountryRepository countryRepository3) {
+        this.userRepository3 = userRepository3;
+        this.serviceProviderRepository3 = serviceProviderRepository3;
+        this.countryRepository3 = countryRepository3;
+    }
 
     @Override
     public User register(String username, String password, String countryName) throws Exception{
