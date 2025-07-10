@@ -68,9 +68,7 @@ public class AdminServiceImpl implements AdminService {
         }catch (IllegalArgumentException e){
             throw new Exception("Country not found");
         }
-        Country country = new Country();
-        country.setCountryName(countryEnum);
-        country.setCode(countryEnum.toCode());
+        Country country = new Country(countryEnum,countryEnum.toCode());
         country.setUser(null);
         country.setServiceProvider(serviceProvider);
         serviceProvider.getCountryList().add(country);
