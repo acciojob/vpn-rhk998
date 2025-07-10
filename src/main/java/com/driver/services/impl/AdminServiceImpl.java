@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -36,24 +37,24 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = new Admin();
         admin.setUsername(username);
         admin.setPassword(password);
-        return  adminRepository1.save(admin);
+        List<ServiceProvider> serviceProviderList = new ArrayList<>();
+        admin.setServiceProviders(serviceProviderList);
+        return adminRepository1.save(admin);
     }
 
     @Override
     public Admin addServiceProvider(int adminId, String providerName) {
-        Admin admin = adminRepository1.findById(adminId).get();
-        ServiceProvider serviceProvider = serviceProviderRepository1.findByName(providerName);
-        List<ServiceProvider> providers = admin.getServiceProviders();
-        if(serviceProvider == null){
-            serviceProvider = new ServiceProvider();
+        Optional<Admin> adminOptional = adminRepository1.findById(adminId);
+        if(adminOptional.isPresent()){
+            Admin admin= adminOptional.get();
+            ServiceProvider serviceProvider = new ServiceProvider();
             serviceProvider.setName(providerName);
+            List<Country> countryList = new ArrayList<>();
+            serviceProvider.setCountryList(countryList);
+            admin.getServiceProviders().add(serviceProvider);
+            return adminRepository1.save(admin);
         }
-        serviceProvider.setAdmin(admin);
-        serviceProviderRepository1.save(serviceProvider);
-
-        providers.add(serviceProvider);
-        admin.setServiceProviders(providers);
-        return adminRepository1.save(admin);
+        return null;
     }
 
     @Override
@@ -72,11 +73,7 @@ public class AdminServiceImpl implements AdminService {
         country.setCode(countryEnum.toCode());
         country.setUser(null);
         country.setServiceProvider(serviceProvider);
-
-        List<Country> countryList = serviceProvider.getCountryList();
-        if (countryList == null) countryList = new ArrayList<>();
-        countryList.add(country);
-        serviceProvider.setCountryList(countryList);
+        serviceProvider.getCountryList().add(country);
 
         return serviceProviderRepository1.save(serviceProvider);
     }
