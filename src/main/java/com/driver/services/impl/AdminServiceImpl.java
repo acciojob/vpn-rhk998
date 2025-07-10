@@ -57,22 +57,29 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
 
-    @Override
-    public ServiceProvider addCountry(int serviceProviderId, String countryName) throws Exception{
-        ServiceProvider serviceProvider = serviceProviderRepository1.findById(serviceProviderId).get();
-        Admin admin = serviceProvider.getAdmin();
-        String cname = countryName.toUpperCase();
-        CountryName countryEnum ;
-        try{
-            countryEnum = CountryName.valueOf(countryName);
-        }catch (IllegalArgumentException e){
-            throw new Exception("Country not found");
-        }
-        Country country = new Country(countryEnum,countryEnum.toCode());
-        country.setUser(null);
-        country.setServiceProvider(serviceProvider);
-        serviceProvider.getCountryList().add(country);
+//
+@Override
+public ServiceProvider addCountry(int serviceProviderId, String countryName) throws Exception{
+    //add a country under the serviceProvider and return respective service provider
 
-        return serviceProviderRepository1.save(serviceProvider);
+    // You should create a new Country object based on the given country name and add it to the country list of the service provider.
+    // Note that the user attribute of the country in this case would be null.
+    //In case country name is not amongst the above mentioned strings, throw "Country not found" exception
+    boolean isCountryPresent = false;
+
+    String str = countryName.toUpperCase();
+    if(!str.equals("IND") && !str.equals("JPN") && !str.equals("AUS") && !str.equals("CHI") && !str.equals("USA")){
+        throw  new Exception("Country not found");
     }
+    ServiceProvider serviceProvider = serviceProviderRepository1.findById(serviceProviderId).get();
+
+    Country country = new Country(CountryName.valueOf(str), CountryName.valueOf(str).toCode());
+
+
+    country.setServiceProvider(serviceProvider);
+    serviceProvider.getCountryList().add(country);
+
+    serviceProviderRepository1.save(serviceProvider);
+
+    return serviceProvider;
 }
