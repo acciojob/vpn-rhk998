@@ -13,7 +13,7 @@ public class ServiceProvider {
 
     @ManyToOne
     @JoinColumn
-    private Admin admin;
+    Admin admin;
 
     @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
     List<Country> countryList;

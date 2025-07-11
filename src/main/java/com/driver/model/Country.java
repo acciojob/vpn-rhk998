@@ -5,7 +5,9 @@ import com.driver.model.User;
 import javax.persistence.*;
 import java.util.List;
 
-public class Country{
+@Entity public class Country{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private CountryName countryName;
