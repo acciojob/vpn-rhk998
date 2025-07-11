@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     public User register(String username, String password, String countryName) throws Exception{
         String countryName1 = countryName.toUpperCase();
 
-        if (!countryName1.equals("IND") && !countryName1.equals("USA") && !countryName1.equals("CHI") && !countryName1.equals("JPN"))
+        if (!countryName1.equals("AUS") && !countryName1.equals("IND") && !countryName1.equals("USA") && !countryName1.equals("CHI") && !countryName1.equals("JPN"))
             throw new Exception("Country not found");
         Country country = new Country(CountryName.valueOf(countryName1.toString()), CountryName.valueOf(countryName1).toCode());
 
