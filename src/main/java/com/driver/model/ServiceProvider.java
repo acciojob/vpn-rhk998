@@ -20,10 +20,10 @@ public class ServiceProvider {
     List<Country> countryList = new ArrayList<>();
 
     @ManyToMany(mappedBy = "serviceProviderList", cascade = CascadeType.ALL)
-    List<User> users;
+    List<User> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
-    List<Connection> connectionList;
+    List<Connection> connectionList = new ArrayList<>();;
 
     public int getId() {
         return id;

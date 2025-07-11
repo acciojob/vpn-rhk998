@@ -1,6 +1,7 @@
 package com.driver.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,13 +18,13 @@ public class User {
 
     @JoinColumn
     @ManyToMany
-    private List<ServiceProvider> serviceProviderList;
+    private List<ServiceProvider> serviceProviderList = new ArrayList<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Country originalCountry; //This field remains unaffected even when vpn connection is made
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Connection> connectionList;
+    private List<Connection> connectionList = new ArrayList<>();
 
     public int getId() {
         return id;

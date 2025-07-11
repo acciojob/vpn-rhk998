@@ -13,9 +13,11 @@ public class Country{
     String code;
 
     @ManyToOne
+    @JoinColumn
     private ServiceProvider serviceProvider;
 
     @OneToOne
+    @JoinColumn
     User user;
 
     public Country(){}
