@@ -66,7 +66,6 @@ public ServiceProvider addCountry(int serviceProviderId, String countryName) thr
     // Note that the user attribute of the country in this case would be null.
     //In case country name is not amongst the above mentioned strings, throw "Country not found" exception
     boolean isCountryPresent = false;
-
     String str = countryName.toUpperCase();
     if(!str.equals("IND") && !str.equals("JPN") && !str.equals("AUS") && !str.equals("CHI") && !str.equals("USA")){
         throw  new Exception("Country not found");
