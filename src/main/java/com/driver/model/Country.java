@@ -1,30 +1,42 @@
-package com.driver.model;// Note: Do not write @Enumerated annotation above CountryName in this model.
-import com.driver.model.CountryName;
-import com.driver.model.User;
+package com.driver.model;
 
 import javax.persistence.*;
-import java.util.List;
 
-@Entity public class Country{
+// Note: Do not write @Enumerated annotation above CountryName in this model.
+@Entity
+public class Country{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private CountryName countryName;
-    private String code;
-
-    @OneToOne
-    private User user;
+    CountryName countryName;
+    String code;
 
     @ManyToOne
-    @JoinColumn
-    private ServiceProvider serviceProvider;
+    ServiceProvider serviceProvider;
 
-    public Country() {}
+    @OneToOne
+    User user;
 
     public Country(CountryName countryName, String code) {
         this.countryName=countryName;
         this.code=code;
+    }
+
+    public ServiceProvider getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {
@@ -33,14 +45,6 @@ import java.util.List;
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public CountryName getCountryName() {
@@ -57,21 +61,5 @@ import java.util.List;
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public ServiceProvider getServiceProvider() {
-        return serviceProvider;
-    }
-
-    public void setServiceProvider(ServiceProvider serviceProvider) {
-        this.serviceProvider = serviceProvider;
     }
 }
