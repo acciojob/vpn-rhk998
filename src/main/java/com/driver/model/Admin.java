@@ -13,7 +13,7 @@ public class Admin {
     private String password;
 
     @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
-    List<ServiceProvider> serviceProviders;
+    private List<ServiceProvider> serviceProviders;
 
     public int getId() {
         return id;
