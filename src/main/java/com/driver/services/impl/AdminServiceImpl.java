@@ -29,10 +29,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin register(String username, String password) {
         Admin admin = new Admin();
-//        admin.setUsername(username);
-//        admin.setPassword(password);
-//        List<ServiceProvider> serviceProviderList = new ArrayList<>();
-//        admin.setServiceProviders(serviceProviderList);
+        admin.setUsername(username);
+        admin.setPassword(password);
+        List<ServiceProvider> serviceProviderList = new ArrayList<>();
+        admin.setServiceProviders(serviceProviderList);
         return adminRepository1.save(admin);
     }
 
@@ -45,10 +45,8 @@ public class AdminServiceImpl implements AdminService {
             serviceProvider.setName(providerName);
             List<Country> countryList = new ArrayList<>();
             serviceProvider.setCountryList(countryList);
-            serviceProvider.setAdmin(admin);
-            serviceProviderRepository1.save(serviceProvider);
             admin.getServiceProviders().add(serviceProvider);
-//            return adminRepository1.save(admin);
+            return adminRepository1.save(admin);
         }
         return null;
     }
