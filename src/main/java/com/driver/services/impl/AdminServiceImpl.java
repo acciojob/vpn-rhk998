@@ -45,6 +45,7 @@ public class AdminServiceImpl implements AdminService {
             serviceProvider.setName(providerName);
             List<Country> countryList = new ArrayList<>();
             serviceProvider.setCountryList(countryList);
+            serviceProvider.setAdmin(admin);
             admin.getServiceProviders().add(serviceProvider);
             return adminRepository1.save(admin);
         }
@@ -53,19 +54,17 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ServiceProvider addCountry(int serviceProviderId, String countryName) throws Exception{
-        //add a country under the serviceProvider and return respective service provider
-
-        // You should create a new Country object based on the given country name and add it to the country list of the service provider.
-        // Note that the user attribute of the country in this case would be null.
-        //In case country name is not amongst the above mentioned strings, throw "Country not found" exception
-        boolean isCountryPresent = false;
+         boolean isCountryPresent = false;
 
         String str = countryName.toUpperCase();
         if(!str.equals("IND") && !str.equals("JPN") && !str.equals("AUS") && !str.equals("CHI") && !str.equals("USA")){
             throw  new Exception("Country not found");
         }
-        ServiceProvider serviceProvider = serviceProviderRepository1.findById(serviceProviderId).get();
-
+        Optional<ServiceProvider> serviceProviderOptional  = serviceProviderRepository1.findById(serviceProviderId);
+        if (!serviceProviderOptional.isPresent()) {
+            throw new Exception("Service Provider not found"); // Or a custom exception
+        }
+        ServiceProvider serviceProvider = serviceProviderOptional.get();
         Country country = new Country(CountryName.valueOf(str), CountryName.valueOf(str).toCode());
 
 

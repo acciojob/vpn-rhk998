@@ -13,7 +13,7 @@ public class Country{
     String code;
 
     @ManyToOne
-    ServiceProvider serviceProvider;
+    private ServiceProvider serviceProvider;
 
     @OneToOne
     User user;

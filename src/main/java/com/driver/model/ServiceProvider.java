@@ -1,6 +1,7 @@
 package com.driver.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ public class ServiceProvider {
     Admin admin;
 
     @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
-    List<Country> countryList;
+    List<Country> countryList = new ArrayList<>();
 
     @ManyToMany(mappedBy = "serviceProviderList", cascade = CascadeType.ALL)
     List<User> users;
