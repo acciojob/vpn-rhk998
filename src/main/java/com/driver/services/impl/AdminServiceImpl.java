@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin register(String username, String password) {
-//        Admin admin = new Admin();
+        Admin admin = new Admin();
 //        admin.setUsername(username);
 //        admin.setPassword(password);
 //        List<ServiceProvider> serviceProviderList = new ArrayList<>();
@@ -39,18 +39,18 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin addServiceProvider(int adminId, String providerName) {
         Optional<Admin> adminOptional = adminRepository1.findById(adminId);
-//        if(adminOptional.isPresent()){
-//            Admin admin= adminOptional.get();
-//            ServiceProvider serviceProvider = new ServiceProvider();
-//            serviceProvider.setName(providerName);
-//            List<Country> countryList = new ArrayList<>();
-//            serviceProvider.setCountryList(countryList);
-//            serviceProvider.setAdmin(admin);
-//            serviceProviderRepository1.save(serviceProvider);
-//            admin.getServiceProviders().add(serviceProvider);
+        if(adminOptional.isPresent()){
+            Admin admin= adminOptional.get();
+            ServiceProvider serviceProvider = new ServiceProvider();
+            serviceProvider.setName(providerName);
+            List<Country> countryList = new ArrayList<>();
+            serviceProvider.setCountryList(countryList);
+            serviceProvider.setAdmin(admin);
+            serviceProviderRepository1.save(serviceProvider);
+            admin.getServiceProviders().add(serviceProvider);
 //            return adminRepository1.save(admin);
         }
-//        return null;
+        return null;
     }
 
     @Override
