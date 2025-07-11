@@ -31,13 +31,13 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = new Admin();
         admin.setUsername(username);
         admin.setPassword(password);
-//        List<ServiceProvider> serviceProviderList = new ArrayList<>();
-//        admin.setServiceProviders(serviceProviderList);
+
         return adminRepository1.save(admin);
     }
 
     @Override
     public Admin addServiceProvider(int adminId, String providerName) {
+
         Admin admin = adminRepository1.findById(adminId).get();
 
         ServiceProvider serviceProvider = new ServiceProvider();

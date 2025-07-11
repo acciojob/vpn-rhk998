@@ -38,11 +38,10 @@ public class UserServiceImpl implements UserService {
         country.setUser(user);
         user.setOriginalCountry(country);
 
-        user = userRepository3.save(user);
 
         user.setOriginalIp(new String(user.getOriginalCountry().getCode() + "." + user.getId()));
 
-        user = userRepository3.save(user);
+        userRepository3.save(user);
         return user;
 
     }
