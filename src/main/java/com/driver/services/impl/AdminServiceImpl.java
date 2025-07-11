@@ -45,7 +45,6 @@ public class AdminServiceImpl implements AdminService {
             serviceProvider.setName(providerName);
             List<Country> countryList = new ArrayList<>();
             serviceProvider.setCountryList(countryList);
-            serviceProvider.setAdmin(admin);
             admin.getServiceProviders().add(serviceProvider);
             return adminRepository1.save(admin);
         }
@@ -54,17 +53,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public ServiceProvider addCountry(int serviceProviderId, String countryName) throws Exception{
-         boolean isCountryPresent = false;
+        boolean isCountryPresent = false;
 
         String str = countryName.toUpperCase();
         if(!str.equals("IND") && !str.equals("JPN") && !str.equals("AUS") && !str.equals("CHI") && !str.equals("USA")){
             throw  new Exception("Country not found");
         }
-        Optional<ServiceProvider> serviceProviderOptional  = serviceProviderRepository1.findById(serviceProviderId);
-        if (!serviceProviderOptional.isPresent()) {
-            throw new Exception("Service Provider not found"); // Or a custom exception
-        }
-        ServiceProvider serviceProvider = serviceProviderOptional.get();
+        ServiceProvider serviceProvider = serviceProviderRepository1.findById(serviceProviderId).get();
+
         Country country = new Country(CountryName.valueOf(str), CountryName.valueOf(str).toCode());
 
 
