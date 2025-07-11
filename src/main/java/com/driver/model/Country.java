@@ -18,6 +18,7 @@ public class Country{
     @OneToOne
     User user;
 
+    public Country(){}
     public Country(CountryName countryName, String code) {
         this.countryName=countryName;
         this.code=code;
